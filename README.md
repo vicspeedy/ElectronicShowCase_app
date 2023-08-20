@@ -332,6 +332,15 @@ gem 'devise'
 ### Agregar flash messages app/views/layouts/application.html.erb
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+### Git
+* git add .
+* git commit -m "Feat(Devise) Instalacion y configuracion devise"
+
+### Git
+* git add .
+* git commit -m "Feat(DataBase) Descomentado production"
+
 ### Agregar User
 * rails g devise User
 
