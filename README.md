@@ -535,3 +535,19 @@ https://guides.rubyonrails.org/form_helpers.html
 ### Git
 * git add .
 * git commit -m "Feat(Product User) Usuario que publico puede editar su publicacion"
+
+### Modificar app/views/products/show.html.erb
+ <div>
+  <% if user_signed_in? %>
+    <% if current_user.id == @product.user_id %>
+      <%= link_to "Edit this product", edit_product_path(@product) %>
+      <%= button_to "Destroy this product", @product, method: :delete %>
+    <% end %>
+  <% end %>
+  <br />
+  <%= link_to "Back to products", products_path %>
+ </div>
+
+### Git
+* git add .
+* git commit -m "Feat(Product User) Usuario que publico puede editar su publicacion vista show"
