@@ -24,7 +24,7 @@
       <ul>
         <% if user_signed_in? %>
           <li>
-            <strong><%= current_user.email %></strong> | <%#= current_user.role %>
+            <strong><%= current_user.full_name %></strong> | <%= current_user.role %>
           </li>
           <li><%= link_to "Editar perfil", edit_user_registration_path %></li>
           <li><%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete %></li>

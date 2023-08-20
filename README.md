@@ -382,4 +382,48 @@ gem 'devise'
                                     sign_out: 'logout',
                                     sign_up: 'registrate' }
 
+### Git
+* git add .
+* git commit -m "Feat(User) Configuracion inicial ruta y vista"
 
+### Generar Vistas Devise "solo" para User
+* rails g devise:views users
+
+### Descomentar config/initializers/devise.rb
+* config.scoped_views = true
+
+### Agregar app/views/users/registration/edit.html.erb
+ <div class="field">
+    <%= f.label :name %> <br>
+    <%= f.text_field :name, autocomplete: "new-name" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :bio %> <br>
+    <%= f.text_area :bio %>
+  </div>
+
+### Comentar app/views/users/registration/edit.html.erb
+  <div class="field">
+    <%#= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%#= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+### Configurar app/models/user.rb Mostrar nombre o correo
+ def full_name
+    name.blank? ? email : name
+ end
+
+### Llamar el metodo en la vista app/views/layouts/application.html.erb
+    <li>
+        <strong><%= current_user.full_name %></strong> 
+    </li>
+
+### Agregar Rol app/views/layouts/application.html.erb
+ <strong><%= current_user.full_name %></strong> | <%= current_user.role %>
+
+## Input Data
+https://guides.rubyonrails.org/form_helpers.html
+![Alt text](image-7.png)
+
+###
