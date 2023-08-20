@@ -147,3 +147,75 @@ def create
 
 ### Moverse a la rama develops
 * git checkout develops
+
+### Fucionar lo que esta en "develops" from "01-StaticPages"
+![Alt text](<Merge pull request.png>)
+
+### Ver los commit por rama cambios 
+![Alt text](<ver commit.png>)
+
+### Estando en la nube (Github) descargarlo
+### Git rama local develops no hay nada
+* git status
+* git pull origin develops
+
+## Heroku
+### Ir https://dashboard.heroku.com/apps
+* New - Create new app 
+* app name: electronicshowcaseapp "minuscula numeros guiones"
+* Create app
+### Conectarse a GitHub y buscar repositorio
+![Alt text](<heroku Github Repo.png>)
+
+* Choose a branch to deploy: main (Elegir la rama)
+* Wait for CI to pass before deploy (habilitar CI)
+* Enable Automatic Deploys
+![Alt text](image-5.png)
+
+### En la Rama Main no hay nada en Github realizar un nuevo pull request
+![Alt text](<nuevo pull request.png>)
+
+### A Main darle lo que esta en develops
+![Alt text](<Main from Develops.png>)
+
+### Open pull request desde el archivo .github/pull_request_template.md
+#### Configuraciones Pull Request atractivo para implementar (Theme) colocar nombre: 01-Static Pages
+* Enter - Create pull request
+### Se tiene que actualizar el CI
+![Alt text](<Actualiza el CI.png>)
+
+* Merge pull request
+* Confirm merge
+### Compare & pull request ir Code
+* Compare & pull request
+* Create pull request
+
+### Se Actualiza Main con lo de develops
+
+# Heroku
+## Deploy de la App Automatico (CI)
+## Deploy de la App Manual
+* Deploy Branch
+![Alt text](image-6.png)
+
+### Crear nueva rama 
+* git checkout -b 02-ReferenceModels
+
+### Modelo Categoria
+* rails g model Category name:string available:boolean
+### Migracion Categoria Agregar default true
+* t.boolean :available, default: true
+### Migracion
+* rails db:migrate db:migrate:status
+
+
+
+
+
+
+
+
+
+
+
+
