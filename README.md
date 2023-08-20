@@ -551,3 +551,26 @@ https://guides.rubyonrails.org/form_helpers.html
 ### Git
 * git add .
 * git commit -m "Feat(Product User) Usuario que publico puede editar su publicacion vista show"
+
+### Validaciones Model app/models/product.rb
+  validates :name,            presence: true,
+                              uniqueness: true
+  validates :description,     presence: true,
+                              length: { minimum: 10 }
+  validates :price,           presence: true,
+                              numericality: { greater_than: 0 }
+  validates :release_date,    presence: true
+  validates :link_to_website, presence: true,
+                              format: { with: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/ },
+                              uniqueness: true
+
+### Modificar Vista app/views/products/_form.html.erb
+ <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%#= form.collection_select :category_id, Category.all, :id, :name %>
+    <%= form.collection_select :category_id, Category.where(available: true), :id, :name %>
+  </div>
+
+### Git
+* git add .
+* git commit -m "Feat(Product Validacion) Validacion del modelo"
