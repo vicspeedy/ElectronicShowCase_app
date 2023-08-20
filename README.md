@@ -447,3 +447,8 @@ https://guides.rubyonrails.org/form_helpers.html
 ### Git
 * git add .
 * git commit -m "Doc:(Annotate Gem) Anotaciones en el modelo"
+
+### Git
+* git add .
+* git commit -m "Feat(User Model) Agregados los Roles"
+* git push -u origin 03-AutenticateSystem
