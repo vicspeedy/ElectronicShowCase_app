@@ -93,3 +93,38 @@ def create
 * resources :contacts, only: [:new, :create]
 ### Eliminar las Views app/views/contacts
 ### Dejar: _form.html.erb, new.html.erb
+
+### Git
+* git add .
+* git commit -m "Feat(Contact Views) Vistas necesarias form new"
+
+### Agregar Nav Contacts a app/views/layouts/applications.html.erb
+ <li><%= link_to "Contacts", new_contact_path %></li> 
+
+### Validaciones de Contacts
+#### Modelo app/models/contact.rb
+    validates :name,    presence: true
+    validates :email,   presence: true, 
+                        format: {with: URI::MailTo::EMAIL_REGEXP} # formato correo
+    validates :message, presence: true
+#### Vista app/views/contacts/_form.html.erb
+ <%= form.text_field :name, 
+    autofocus: true, 
+    required: true,
+    placeholder: "Nombre Apellido" %>
+ <%= form.text_field :email, 
+    required: true, 
+    pattern: "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
+    style: "text-transform:lowercase",
+    onkeyup: "javascript:this.value=this.value.toLowerCase();",
+    placeholder: "tucorreo@mail.com" %> %>
+ <%= form.text_area :message, 
+    required: true, 
+    minlength: 10, 
+    maxlength: 200,
+    placeholder: "Escribe tu texto" %>
+
+### Modificar app/views/contacts/new.html.erb
+<%= link_to "Back Home", root_path %>
+
+
