@@ -574,3 +574,33 @@ https://guides.rubyonrails.org/form_helpers.html
 ### Git
 * git add .
 * git commit -m "Feat(Product Validacion) Validacion del modelo"
+
+### Agregar Validaciones Vista app/views/products/_form.html.erb
+    <%= form.text_field :name, 
+        autofocus: true,
+        required: true %>
+
+    <%= form.text_area :description,
+        required: true,
+        minlength: 10 %>
+    
+    <%= form.collection_select :category_id, 
+        Category.where(available: true), :id, :name,
+        include_blank: true,
+        required: true %>
+
+    <%= form.number_field :price,
+        required: true,
+        min: 0 %>
+    
+    <%= form.date_field :release_date,
+        required: true,
+        value: Date.today %>
+    
+    <%= form.text_field :link_to_website, 
+        required: true,
+        value: "https://" %>
+
+### Git
+* git add .
+* git commit -m "Feat(Product Validacion) Validacion de la Vista"
