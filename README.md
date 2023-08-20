@@ -452,3 +452,32 @@ https://guides.rubyonrails.org/form_helpers.html
 * git add .
 * git commit -m "Feat(User Model) Agregados los Roles"
 * git push -u origin 03-AutenticateSystem
+
+## GitHub
+* Compare & pull request
+* Create pull request
+* Merge pull request
+* Confirm merge
+### New pull request para la rama Main
+* New pull request
+* base:main <- compare:develops
+* Create pull request
+* Colocar titulo 03-AutenticateSystem - enter
+* Esperar el CI
+* Merge pull rquest
+* Confirm merge
+
+### Moverse a la rama develops
+* git checkout develops
+* git status
+* git pull origin develops
+
+### Crear nueva rama 
+* git checkout -b 04-ProductScaffold
+
+### Agregar Producto
+* rails g scaffold Product user:references name description:text category:references price:integer release_date:date link_to_website:string available:boolean
+### Migracion producto Agregar default true
+* t.boolean :available, default: true
+### Migracion
+* rails db:migrate db:migrate:status
