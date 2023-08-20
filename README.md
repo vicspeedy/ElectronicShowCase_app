@@ -297,3 +297,42 @@ end
 * git add .
 * git commit -m "Doc:(CSV Files) Archivos csv creados y asociados al seeds"
 * git push origin 02-ReferenceModels
+
+### GitHub
+* Compare & pull request
+* Create pull request
+* Merge pull request
+* Confirm merge
+### New pull request para la rama Main
+* New pull request
+* base:main <- compare:develops
+* Create pull request
+* Colocar titulo 02-ReferenceModels - enter
+* Esperar el CI
+
+### Moverse a la rama develops
+* git checkout develops
+* git status
+* git pull origin develops
+
+### Crear nueva rama 
+* git checkout -b 03-AutenticateSystem
+
+## Devise
+### Instalar devise
+* bundle add devise
+### Agregar a Gemfile
+gem 'devise'
+### Instalar de Gemfile
+* bundle install
+### Instalar Devise
+* rails g devise:install
+### Agregar en config/environments/development.rb
+* config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+### Agregar flash messages app/views/layouts/application.html.erb
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+### Agregar User
+* rails g devise User
+
+
