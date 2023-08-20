@@ -297,3 +297,158 @@ end
 * git add .
 * git commit -m "Doc:(CSV Files) Archivos csv creados y asociados al seeds"
 * git push origin 02-ReferenceModels
+
+### GitHub
+* Compare & pull request
+* Create pull request
+* Merge pull request
+* Confirm merge
+### New pull request para la rama Main
+* New pull request
+* base:main <- compare:develops
+* Create pull request
+* Colocar titulo 02-ReferenceModels - enter
+* Esperar el CI
+
+### Moverse a la rama develops
+* git checkout develops
+* git status
+* git pull origin develops
+
+### Crear nueva rama 
+* git checkout -b 03-AutenticateSystem
+
+## Devise
+### Instalar devise
+* bundle add devise
+### Agregar a Gemfile
+gem 'devise'
+### Instalar de Gemfile
+* bundle install
+### Instalar Devise
+* rails g devise:install
+### Agregar en config/environments/development.rb
+* config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+### Agregar flash messages app/views/layouts/application.html.erb
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+### Git
+* git add .
+* git commit -m "Feat(Devise) Instalacion y configuracion devise"
+
+## Git 
+### Descomentar production en config/database.yml
+* git add .
+* git commit -m "Feat(DataBase) Descomentado production"
+
+### Agregar User con los campos nombre bio rol
+* rails g devise User name bio:text role:string 
+### Migrar 
+* rails db:migrate db:migrate:status
+
+### Descomentar config/initializers/devise.rb
+* config.navigational_formats = ['*/*', :html, :turbo_stream]
+
+### Git
+* git add .
+* git commit -m "Feat(User model) Modelo generado con devise"
+
+### Agregar Archivo app/controllers/registrations_controller.rb
+ class RegistrationsController < Devise::RegistrationsController
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  protect_from_forgery with: :exception
+
+  protected
+
+  def configure_permitted_parameters
+    added_attrs = %i[ email password password_confirmation remember_me
+                      name bio ]
+
+    devise_parameter_sanitizer.permit :sign_up, keys: %i[email password password_confirmation]
+    devise_parameter_sanitizer.permit :sign_in, keys: %i[email password remember_me]
+    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+  end
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+ end
+
+### Routes con Devise
+ devise_for :users,  controllers: { registrations: 'registrations' },
+                      path: '',
+                      path_names: { sign_in: 'login',
+                                    sign_out: 'logout',
+                                    sign_up: 'registrate' }
+
+### Git
+* git add .
+* git commit -m "Feat(User) Configuracion inicial ruta y vista"
+
+### Generar Vistas Devise "solo" para User
+* rails g devise:views users
+
+### Descomentar config/initializers/devise.rb
+* config.scoped_views = true
+
+### Agregar app/views/users/registration/edit.html.erb
+ <div class="field">
+    <%= f.label :name %> <br>
+    <%= f.text_field :name, autocomplete: "new-name" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :bio %> <br>
+    <%= f.text_area :bio %>
+  </div>
+
+### Comentar app/views/users/registration/edit.html.erb
+  <div class="field">
+    <%#= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%#= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+### Configurar app/models/user.rb Mostrar nombre o correo
+ def full_name
+    name.blank? ? email : name
+ end
+
+### Llamar el metodo en la vista app/views/layouts/application.html.erb
+    <li>
+        <strong><%= current_user.full_name %></strong> 
+    </li>
+
+### Agregar Rol app/views/layouts/application.html.erb
+ <strong><%= current_user.full_name %></strong> | <%= current_user.role %>
+
+## Input Data
+https://guides.rubyonrails.org/form_helpers.html
+![Alt text](image-7.png)
+
+### Git
+* git add .
+* git commit -m "Feat(User Views) Modelo y Vistas modificadas"
+
+### Agregar app/models/user.rb Roles
+  validates :role, inclusion: { in: %w[normal administrador] }
+  enum role: {
+    normal: 'normal',
+    admin: 'administrador'
+  }, _default: 'normal'
+
+### Agregar annotate al Gemfile
+ group :development, :test do
+   gem 'annotate'
+ end
+### Ejecutar annotate
+* annotate --models 
+
+### Git
+* git add .
+* git commit -m "Doc:(Annotate Gem) Anotaciones en el modelo"
+
+### Git
+* git add .
+* git commit -m "Feat(User Model) Agregados los Roles"
+* git push -u origin 03-AutenticateSystem
