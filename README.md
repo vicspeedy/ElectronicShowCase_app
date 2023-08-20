@@ -132,3 +132,7 @@ def create
 * git commit -m "Feat(Contact Validates) Validar Model Views"
 
 ### Agregar la carpeta .github 
+### Git
+* git add .
+* git commit -m "Doc:(Github Files) Integracion, Tareas pull request"
+* git push -u origin 01-StaticPages
