@@ -444,3 +444,6 @@ https://guides.rubyonrails.org/form_helpers.html
 ### Ejecutar annotate
 * annotate --models 
 
+### Git
+* git add .
+* git commit -m "Doc:(Annotate Gem) Anotaciones en el modelo"

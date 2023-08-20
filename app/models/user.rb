@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Start: *TODO: 
-  # Validaciones 
+  # Validaciones, se crea el usuario se le asigna el rol
   validates :role, inclusion: { in: %w[normal administrador] }
   # Enum de roles
   enum role: {
