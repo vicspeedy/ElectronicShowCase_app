@@ -69,9 +69,27 @@ Things you may want to cover:
     </nav>
 
 ### Git
-* add .
+* git add .
 * git commit -m "Feat(Page Routes) Rutas Amigables"
 
 ### Add Contact (Especificar lo que se necesita y lo que no)
 * rails g scaffold Contact name email message:text
 * rails db:migrate db:migrate:status
+
+### Git
+* git add .
+* git commit -m "Feat(Contact scaffold) Inicial"
+
+### Add Contact (Especificar lo que se necesita y lo que no)
+### Quitar: before_action, index, show, edit, update, destroy
+### Dejar: new, create, set_contact, contact_params
+def create
+ ...
+ if @contact.save
+  format.html { redirect_to new_contact_path, notice: "Contact was successfully created." }
+  ...
+
+### Cambiar ruta contacts config/routes.rb solo new y create
+* resources :contacts, only: [:new, :create]
+### Eliminar las Views app/views/contacts
+### Dejar: _form.html.erb, new.html.erb

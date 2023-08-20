@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :contacts
-  root "pages#home"
 
+  resources :contacts, only: [:new, :create]
+  
   #  get 'pages/home'
   #  get 'pages/terms'
   #  get 'pages/privacy'
@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root "pages#home"
+
 end
