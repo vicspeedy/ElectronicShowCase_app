@@ -21,6 +21,18 @@
         <li><%= link_to "Privacy", privacy_path %></li>
         <li><%= link_to "Contacts", new_contact_path %></li>
       </ul>
+      <ul>
+        <% if user_signed_in? %>
+          <li>
+            <strong><%= current_user.email %></strong> | <%#= current_user.role %>
+          </li>
+          <li><%= link_to "Editar perfil", edit_user_registration_path %></li>
+          <li><%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Registrate", new_user_registration_path %></li>
+          <li><%= link_to "Inicia sesión", new_user_session_path %></li>
+        <% end %>
+      </ul>
     </nav>
     <!-- End: *TODO: -->
 

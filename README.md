@@ -344,5 +344,42 @@ gem 'devise'
 
 ### Agregar User con los campos nombre bio rol
 * rails g devise User name bio:text role:string 
+### Migrar 
+* rails db:migrate db:migrate:status
+
+### Descomentar config/initializers/devise.rb
+* config.navigational_formats = ['*/*', :html, :turbo_stream]
+
+### Git
+* git add .
+* git commit -m "Feat(User model) Modelo generado con devise"
+
+### Agregar Archivo app/controllers/registrations_controller.rb
+ class RegistrationsController < Devise::RegistrationsController
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  protect_from_forgery with: :exception
+
+  protected
+
+  def configure_permitted_parameters
+    added_attrs = %i[ email password password_confirmation remember_me
+                      name bio ]
+
+    devise_parameter_sanitizer.permit :sign_up, keys: %i[email password password_confirmation]
+    devise_parameter_sanitizer.permit :sign_in, keys: %i[email password remember_me]
+    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+  end
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+ end
+
+### Routes con Devise
+ devise_for :users,  controllers: { registrations: 'registrations' },
+                      path: '',
+                      path_names: { sign_in: 'login',
+                                    sign_out: 'logout',
+                                    sign_up: 'registrate' }
 
 
