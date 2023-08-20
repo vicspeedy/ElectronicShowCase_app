@@ -68,3 +68,10 @@ Things you may want to cover:
       </ul>
     </nav>
 
+### Git
+* add .
+* git commit -m "Feat(Page Routes) Rutas Amigables"
+
+### Add Contact (Especificar lo que se necesita y lo que no)
+* rails g scaffold Contact name email message:text
+* rails db:migrate db:migrate:status
