@@ -337,11 +337,12 @@ gem 'devise'
 * git add .
 * git commit -m "Feat(Devise) Instalacion y configuracion devise"
 
-### Git
+## Git 
+### Descomentar production en config/database.yml
 * git add .
 * git commit -m "Feat(DataBase) Descomentado production"
 
-### Agregar User
-* rails g devise User
+### Agregar User con los campos nombre bio rol
+* rails g devise User name bio:text role:string 
 
 
