@@ -127,4 +127,8 @@ def create
 ### Modificar app/views/contacts/new.html.erb
 <%= link_to "Back Home", root_path %>
 
+### Git
+* git add .
+* git commit -m "Feat(Contact Validates) Validar Model Views"
 
+### Agregar la carpeta .github 
