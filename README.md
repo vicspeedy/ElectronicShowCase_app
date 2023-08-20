@@ -201,20 +201,37 @@ def create
 ### Crear nueva rama 
 * git checkout -b 02-ReferenceModels
 
-### Modelo Categoria
+### Modelo Categoria (uno a N)
 * rails g model Category name:string available:boolean
 ### Migracion Categoria Agregar default true
 * t.boolean :available, default: true
 ### Migracion
 * rails db:migrate db:migrate:status
 
+### Git
+* git add .
+* git commit -m "Feat(Category Model) Modelo creado"
 
+### Modelo Caracteristicas (N a N)
+* rails g model Feature name:string available:boolean
+### Migracion Caracteristicas Agregar default true
+* t.boolean :available, default: true
+### Migracion
+* rails db:migrate db:migrate:status
 
+### Git
+* git add .
+* git commit -m "Feat(Feature Model) Modelo creado"
 
+### Validaciones app/models/category.rb
+    validates :name,      presence: true,
+                          uniqueness: true
+    validates :available, inclusion: { in: [true, false] }
 
-
-
-
+### Validaciones app/models/feature.rb
+    validates :name,      presence: true,
+                          uniqueness: true
+    validates :available, inclusion: { in: [true, false] }
 
 
 
