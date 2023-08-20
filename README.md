@@ -518,3 +518,20 @@ https://guides.rubyonrails.org/form_helpers.html
     <strong>User:</strong>
     <%= product.user.full_name %>
   </p>
+
+### Git
+* git add .
+* git commit -m "Feat(Product User) Vistas, solo user actual puede publicar"
+
+### Limitar acceso app/controllers/products_controller.rb
+  def edit
+    if current_user.id == @product.user_id
+      @product = Product.find(params[:id])
+    else
+      redirect_to root_path, notice: 'No puedes editar un producto que no es tuyo'
+    end
+  end
+
+### Git
+* git add .
+* git commit -m "Feat(Product User) Usuario que publico puede editar su publicacion"

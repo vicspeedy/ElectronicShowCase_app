@@ -23,6 +23,13 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    # Start: *TODO: "Limitar acceso"
+    if current_user.id == @product.user_id
+      @product = Product.find(params[:id])
+    else
+      redirect_to root_path, notice: 'No puedes editar un producto que no es tuyo'
+    end
+    # End: *TODO:
   end
 
   # POST /products or /products.json
