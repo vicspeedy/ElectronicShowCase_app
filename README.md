@@ -290,5 +290,9 @@ end
 * rails db:seed
 ### Verificar en Console
 * rails c
-* Categories.all
+* Category.all
 * exit
+
+### Git
+* git add .
+* git commit -m "Doc:(CSV Files) Archivos csv creados y asociados al seeds"
