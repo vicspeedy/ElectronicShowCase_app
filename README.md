@@ -426,4 +426,21 @@ gem 'devise'
 https://guides.rubyonrails.org/form_helpers.html
 ![Alt text](image-7.png)
 
-###
+### Git
+* git add .
+* git commit -m "Feat(User Views) Modelo y Vistas modificadas"
+
+### Agregar app/models/user.rb Roles
+  validates :role, inclusion: { in: %w[normal administrador] }
+  enum role: {
+    normal: 'normal',
+    admin: 'administrador'
+  }, _default: 'normal'
+
+### Agregar annotate al Gemfile
+ group :development, :test do
+   gem 'annotate'
+ end
+### Ejecutar annotate
+* annotate --models 
+

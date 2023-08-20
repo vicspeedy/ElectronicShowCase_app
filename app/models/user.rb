@@ -4,6 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Start: *TODO: 
+  # Validaciones 
+  validates :role, inclusion: { in: %w[normal administrador] }
+  # Enum de roles
+  enum role: {
+    normal: 'normal',
+    admin: 'administrador'
+  }, _default: 'normal'
+  # End: *TODO:
+
   # Start: *TODO:  muestra name o email      
   def full_name
     name.blank? ? email : name
