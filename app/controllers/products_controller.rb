@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
+  # Start: *TODO: deben autentificarse
+  before_action :authenticate_user!, except: %i[index show]
+  # End: *TODO:
 
   # GET /products or /products.json
   def index
@@ -12,7 +15,10 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    # @product = Product.new
+    # Start: *TODO: "Solamente el user actual crea producto"
+    @product = current_user.products.build
+    # End: *TODO:
   end
 
   # GET /products/1/edit
@@ -21,7 +27,10 @@ class ProductsController < ApplicationController
 
   # POST /products or /products.json
   def create
-    @product = Product.new(product_params)
+    # @product = Product.new(product_params)
+    # Start: *TODO: "Solamente el user actual crea producto"
+    @product = current_user.products.build(product_params)
+    # End: *TODO:
 
     respond_to do |format|
       if @product.save
@@ -65,6 +74,9 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:user_id, :name, :description, :category_id, :price, :release_date, :link_to_website, :available)
+      # params.require(:product).permit(:user_id, :name, :description, :category_id, :price, :release_date, :link_to_website, :available)
+      # Start: *TODO: "Se quita el parametro que se puede modificar: user_id"
+      params.require(:product).permit(:name, :description, :category_id, :price, :release_date, :link_to_website, :available)
+      # End: *TODO:
     end
 end

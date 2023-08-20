@@ -481,3 +481,40 @@ https://guides.rubyonrails.org/form_helpers.html
 * t.boolean :available, default: true
 ### Migracion
 * rails db:migrate db:migrate:status
+
+### Git
+* git add .
+* git commit -m "Feat(Product scaffold) Agregado Rutas Modelo Controlador Vistas"
+
+### Agregar en la Vista app/views/layouts/application.html.erb
+ <li><%= link_to "Products", products_path %></li>
+
+### Agregar app/controllers/products_controller.rb
+ before_action :authenticate_user!, except: %i[index show]
+
+ def new
+   @product = current_user.products.build
+ end
+
+ def create
+   @product = current_user.products.build(product_params)
+ end
+
+ def product_params
+   params.require(:product).permit(:name, :description, :category_id, :price, :release_date, :link_to_website, :available)
+ end
+
+### Agregar Relacion en el app/models/user.rb
+ has_many :products, dependent: :destroy
+
+### Quitar en app/views/products/_form.html.erb
+ <div>
+    <%#= form.label :user_id, style: "display: block" %>
+    <%#= form.text_field :user_id %>
+  </div>
+
+### Se modifica app/views/products/_product.html.erb
+  <p>
+    <strong>User:</strong>
+    <%= product.user.full_name %>
+  </p>

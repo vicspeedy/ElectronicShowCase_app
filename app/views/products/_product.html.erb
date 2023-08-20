@@ -1,7 +1,10 @@
 <div id="<%= dom_id product %>">
   <p>
     <strong>User:</strong>
-    <%= product.user_id %>
+    <%#= product.user_id %>
+    <!-- Start: *TODO: "Se modifica por el metodo: name o email " -->
+    <%= product.user.full_name %>
+    <!-- End: *TODO: -->
   </p>
 
   <p>
