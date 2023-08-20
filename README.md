@@ -233,6 +233,12 @@ def create
                           uniqueness: true
     validates :available, inclusion: { in: [true, false] }
 
+### Git
+* git add .
+* git commit -m "Feat(Category, Feature Model) Validaciones Backend"
 
+## Agregar Archivo Procfile
+release: bundle exec rails db:migrate
+web: bundle exec puma -C config/puma.rb
 
 
