@@ -44,6 +44,27 @@ Things you may want to cover:
 ### No se creo la BD desde la misma pagian "http://localhost:3000/" boton create database
 ### Crear BD
 * rails db:create
-### Cambiar ruta raiz
+### Cambiar ruta raiz config/routes.rb
 * root "pages#home"
+### Git
+* add .
+* git commit -m "Feat(Page Controllers) Views create home terms privacy" # Crear el primer "features"
+
+### Renombrar Rutas config/routes.rb "http://localhost:3000/privacy"
+* get '/home',    to: 'pages#home'
+* get '/terms',   to: 'pages#terms'
+* get '/privacy', to: 'pages#privacy'
+
+### Run App
+* rails s -b 0.0.0.0
+
+### Agregar Nav a app/views/layouts/applications.html.erb
+<!-- NAV LINK -->
+    <nav>
+      <ul>
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Terms", terms_path %></li>
+        <li><%= link_to "Privacy", privacy_path %></li>
+      </ul>
+    </nav>
 

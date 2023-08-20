@@ -11,6 +11,19 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <!-- NAV LINK -->
+    <nav>
+      <ul>
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Terms", terms_path %></li>
+        <li><%= link_to "Privacy", privacy_path %></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
   </body>
 </html>
