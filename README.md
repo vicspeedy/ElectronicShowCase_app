@@ -142,3 +142,8 @@ def create
 ![Alt text](image-2.png)
 ### Crear Pull Request
 ![Alt text](image-3.png)
+### Se Integra "CI" gracias a .github/workflows/main.yml
+![Alt text](image-4.png)
+
+### Moverse a la rama develops
+* git checkout develops
