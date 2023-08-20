@@ -136,3 +136,9 @@ def create
 * git add .
 * git commit -m "Doc:(Github Files) Integracion, Tareas pull request"
 * git push -u origin 01-StaticPages
+### Configuracion prioridad al flujo de trabajo cuando se crea el token
+![Alt text](image-1.png)
+### Realizar en Github Pull Request (Comparar codigo)
+![Alt text](image-2.png)
+### Crear Pull Request
+![Alt text](image-3.png)
