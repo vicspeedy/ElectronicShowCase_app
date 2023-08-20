@@ -1,0 +1,44 @@
+<%= form_with(model: contact) do |form| %>
+  <% if contact.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+        <% contact.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name, 
+        autofocus: true, 
+        required: true,
+        placeholder: "Nombre Apellido" %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email, 
+        required: true, 
+        pattern: "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
+        style: "text-transform:lowercase",
+        onkeyup: "javascript:this.value=this.value.toLowerCase();",
+        placeholder: "tucorreo@mail.com" %>
+  </div>
+
+  <div>
+    <%= form.label :message, style: "display: block" %>
+    <%= form.text_area :message, 
+        required: true, 
+        minlength: 10, 
+        maxlength: 200,
+        placeholder: "Escribe tu texto" %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
