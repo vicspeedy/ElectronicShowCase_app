@@ -241,4 +241,54 @@ def create
 release: bundle exec rails db:migrate
 web: bundle exec puma -C config/puma.rb
 
+### Git
+* git add .
+* git commit -m "Doc:(Procfile) Archivo de Heroku"
 
+### Agregar Carpeta db/seeds/csv
+### Agregar el archivo categories.csv
+ category_id,name,available
+ 1,Categoria 1,true
+ 2,Categoria 2,false
+ 3,Categoria 3,true
+ 4,Categoria 4,false
+ 5,Categoria 5,true
+ 6,Categoria 6,false
+### Agregar el archivo features.csv
+ feature_id,name,available
+ 1,Caracteristicas 1,true
+ 2,Caracteristicas 2,false
+ 3,Caracteristicas 3,true
+ 4,Caracteristicas 4,false
+ 5,Caracteristicas 5,true
+ 6,Caracteristicas 6,false
+
+### Configurar el db/seed.rb
+require 'csv'
+
+puts 'Importing categories...'
+CSV.foreach(Rails.root.join('db/seeds/csv/categories.csv'), headers: true) do |row|
+  Category.create! do |category|
+    category.id = row[0]
+    category.name = row[1]
+    category.available = row[2]
+  end
+end
+
+require 'csv'
+
+puts 'Importing features...'
+CSV.foreach(Rails.root.join('db/seeds/csv/features.csv'), headers: true) do |row|
+  Feature.create! do |feature|
+    feature.id = row[0]
+    feature.name = row[1]
+    feature.available = row[2]
+  end
+end
+
+### Migrar
+* rails db:seed
+### Verificar en Console
+* rails c
+* Categories.all
+* exit
