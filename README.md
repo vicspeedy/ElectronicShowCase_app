@@ -652,3 +652,4 @@ https://guides.rubyonrails.org/form_helpers.html
 ### Git
 * git add .
 * git commit -m "Feat(Product_feature Model) Relaciones de muachos a muchos vista y modelos"
+* git push -u origin 04-ProductScaffold
