@@ -14,9 +14,14 @@ class User < ApplicationRecord
   }, _default: 'normal'
   # End: *TODO:
 
-  # Start: *TODO:  muestra name o email      
+  # Start: *TODO:  "muestra name o email"      
   def full_name
     name.blank? ? email : name
   end
   # End: *TODO:
+
+  # Start: *TODO: "Relaciones"
+  has_many :products, dependent: :destroy
+  # End: *TODO:
+
 end
