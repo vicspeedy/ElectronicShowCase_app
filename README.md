@@ -452,3 +452,204 @@ https://guides.rubyonrails.org/form_helpers.html
 * git add .
 * git commit -m "Feat(User Model) Agregados los Roles"
 * git push -u origin 03-AutenticateSystem
+
+## GitHub
+* Compare & pull request
+* Create pull request
+* Merge pull request
+* Confirm merge
+### New pull request para la rama Main
+* New pull request
+* base:main <- compare:develops
+* Create pull request
+* Colocar titulo 03-AutenticateSystem - enter
+* Esperar el CI
+* Merge pull rquest
+* Confirm merge
+
+### Moverse a la rama develops
+* git checkout develops
+* git status
+* git pull origin develops
+
+### Crear nueva rama 
+* git checkout -b 04-ProductScaffold
+
+### Agregar Producto
+* rails g scaffold Product user:references name description:text category:references price:integer release_date:date link_to_website:string available:boolean
+### Migracion producto Agregar default true
+* t.boolean :available, default: true
+### Migracion
+* rails db:migrate db:migrate:status
+
+### Git
+* git add .
+* git commit -m "Feat(Product scaffold) Agregado Rutas Modelo Controlador Vistas"
+
+### Agregar en la Vista app/views/layouts/application.html.erb
+ <li><%= link_to "Products", products_path %></li>
+
+### Agregar app/controllers/products_controller.rb
+ before_action :authenticate_user!, except: %i[index show]
+
+ def new
+   @product = current_user.products.build
+ end
+
+ def create
+   @product = current_user.products.build(product_params)
+ end
+
+ def product_params
+   params.require(:product).permit(:name, :description, :category_id, :price, :release_date, :link_to_website, :available)
+ end
+
+### Agregar Relacion en el app/models/user.rb
+ has_many :products, dependent: :destroy
+
+### Quitar en app/views/products/_form.html.erb
+ <div>
+    <%#= form.label :user_id, style: "display: block" %>
+    <%#= form.text_field :user_id %>
+  </div>
+
+### Se modifica app/views/products/_product.html.erb
+  <p>
+    <strong>User:</strong>
+    <%= product.user.full_name %>
+  </p>
+
+### Git
+* git add .
+* git commit -m "Feat(Product User) Vistas, solo user actual puede publicar"
+
+### Limitar acceso app/controllers/products_controller.rb
+  def edit
+    if current_user.id == @product.user_id
+      @product = Product.find(params[:id])
+    else
+      redirect_to root_path, notice: 'No puedes editar un producto que no es tuyo'
+    end
+  end
+
+### Git
+* git add .
+* git commit -m "Feat(Product User) Usuario que publico puede editar su publicacion"
+
+### Modificar app/views/products/show.html.erb
+ <div>
+  <% if user_signed_in? %>
+    <% if current_user.id == @product.user_id %>
+      <%= link_to "Edit this product", edit_product_path(@product) %>
+      <%= button_to "Destroy this product", @product, method: :delete %>
+    <% end %>
+  <% end %>
+  <br />
+  <%= link_to "Back to products", products_path %>
+ </div>
+
+### Git
+* git add .
+* git commit -m "Feat(Product User) Usuario que publico puede editar su publicacion vista show"
+
+### Validaciones Model app/models/product.rb
+  validates :name,            presence: true,
+                              uniqueness: true
+  validates :description,     presence: true,
+                              length: { minimum: 10 }
+  validates :price,           presence: true,
+                              numericality: { greater_than: 0 }
+  validates :release_date,    presence: true
+  validates :link_to_website, presence: true,
+                              format: { with: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/ },
+                              uniqueness: true
+
+### Modificar Vista app/views/products/_form.html.erb
+ <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%#= form.collection_select :category_id, Category.all, :id, :name %>
+    <%= form.collection_select :category_id, Category.where(available: true), :id, :name %>
+  </div>
+
+### Git
+* git add .
+* git commit -m "Feat(Product Validacion) Validacion del modelo"
+
+### Agregar Validaciones Vista app/views/products/_form.html.erb
+    <%= form.text_field :name, 
+        autofocus: true,
+        required: true %>
+
+    <%= form.text_area :description,
+        required: true,
+        minlength: 10 %>
+    
+    <%= form.collection_select :category_id, 
+        Category.where(available: true), :id, :name,
+        include_blank: true,
+        required: true %>
+
+    <%= form.number_field :price,
+        required: true,
+        min: 0 %>
+    
+    <%= form.date_field :release_date,
+        required: true,
+        value: Date.today %>
+    
+    <%= form.text_field :link_to_website, 
+        required: true,
+        value: "https://" %>
+
+### Git
+* git add .
+* git commit -m "Feat(Product Validacion) Validacion de la Vista"
+
+
+### Modelo para Caracteristicas (N a N)
+* rails g model ProductFeature product:references feature:references
+### Migracion
+* rails db:migrate db:migrate:status
+
+### Relaciones N a N app/models/product.rb
+ has_many :product_features, dependent: :destroy
+ has_many :features, through: :product_features
+
+### Relaciones N a N app/models/feature.rb
+ has_many :product_features, dependent: :destroy
+ has_many :products, through: :product_features
+
+### Relaciones N a N app/models/product_feature.rb
+ validates :product, :feature, presence: true
+
+### Agregar Feature app/views/products/_form.html.erb
+ <div>
+    <%= form.label :feature, style: "display: block" %>
+    <%= form.collection_check_boxes :feature_ids,
+        Feature.where(available: true), :id, :name,
+        required: true %>
+  </div>
+
+### Mostrar nombre categoria app/views/products/_product.html.erb
+ <p>
+    <strong>Category:</strong>
+    <%= product.category.name %>
+ </p>
+
+### Mostrar feature app/views/products/_product.html.erb
+ <p>
+    <strong>Features:</strong>
+    <% product.features.each do |feature| %>
+      <%= feature.name %>
+    <% end %>
+ </p>
+
+# Permitir en el controlador "feature_ids" con 's' app/controllers/product_controller.rb
+ def product_params
+      params.require(:product).permit(:name, :description, :category_id, :price, :release_date, :link_to_website, :available, { feature_ids: [] })
+    end
+
+### Git
+* git add .
+* git commit -m "Feat(Product_feature Model) Relaciones de muachos a muchos vista y modelos"
+* git push -u origin 04-ProductScaffold
