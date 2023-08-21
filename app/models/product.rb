@@ -2,6 +2,9 @@ class Product < ApplicationRecord
   # Relaciones
   belongs_to :user
   belongs_to :category
+  # Start *TODO: "Relaciones muchos a muchos"
+  has_many :product_features, dependent: :destroy
+  has_many :features, through: :product_features
 
   # Start *TODO: "Validaciones"
   validates :name,            presence: true,

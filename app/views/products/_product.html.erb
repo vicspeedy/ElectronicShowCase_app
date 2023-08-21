@@ -19,7 +19,15 @@
 
   <p>
     <strong>Category:</strong>
-    <%= product.category_id %>
+    <%= product.category.name %>
+  </p>
+
+  <p>
+    <strong>Features:</strong>
+    <% product.features.each do |feature| %>
+      <%= content_tag :span, feature.name, class: "tag" %>
+      <%#= feature.name %>
+    <% end %>
   </p>
 
   <p>

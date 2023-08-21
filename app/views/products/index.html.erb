@@ -1,6 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Products</h1>
+<%= link_to "New product", new_product_path %>
+<hr>
 
 <div id="products">
   <% @products.each do |product| %>
@@ -11,4 +13,4 @@
   <% end %>
 </div>
 
-<%= link_to "New product", new_product_path %>
+

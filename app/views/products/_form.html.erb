@@ -50,6 +50,16 @@
   </div>
   <!-- End: *TODO: -->
 
+  <!-- FEATURE  -->
+  <!-- Start: *TODO: "Feature" -->
+  <div>
+    <%= form.label :feature, style: "display: block" %>
+    <%= form.collection_check_boxes :feature_ids,
+        Feature.where(available: true), :id, :name,
+        required: true %>
+  </div>
+  <!-- End: *TODO: -->
+
 
 
   <div>

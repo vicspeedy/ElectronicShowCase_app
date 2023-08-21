@@ -82,8 +82,8 @@ class ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
       # params.require(:product).permit(:user_id, :name, :description, :category_id, :price, :release_date, :link_to_website, :available)
-      # Start: *TODO: "Se quita el parametro que se puede modificar: user_id"
-      params.require(:product).permit(:name, :description, :category_id, :price, :release_date, :link_to_website, :available)
+      # Start: *TODO: "Se quita el parametro que se puede modificar: user_id, se agrega feature_id"
+      params.require(:product).permit(:name, :description, :category_id, :price, :release_date, :link_to_website, :available, { feature_ids: [] }) # Importante feature_ids (s) de varios parametros
       # End: *TODO:
     end
 end

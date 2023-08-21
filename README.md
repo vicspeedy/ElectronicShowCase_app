@@ -604,3 +604,51 @@ https://guides.rubyonrails.org/form_helpers.html
 ### Git
 * git add .
 * git commit -m "Feat(Product Validacion) Validacion de la Vista"
+
+
+### Modelo para Caracteristicas (N a N)
+* rails g model ProductFeature product:references feature:references
+### Migracion
+* rails db:migrate db:migrate:status
+
+### Relaciones N a N app/models/product.rb
+ has_many :product_features, dependent: :destroy
+ has_many :features, through: :product_features
+
+### Relaciones N a N app/models/feature.rb
+ has_many :product_features, dependent: :destroy
+ has_many :products, through: :product_features
+
+### Relaciones N a N app/models/product_feature.rb
+ validates :product, :feature, presence: true
+
+### Agregar Feature app/views/products/_form.html.erb
+ <div>
+    <%= form.label :feature, style: "display: block" %>
+    <%= form.collection_check_boxes :feature_ids,
+        Feature.where(available: true), :id, :name,
+        required: true %>
+  </div>
+
+### Mostrar nombre categoria app/views/products/_product.html.erb
+ <p>
+    <strong>Category:</strong>
+    <%= product.category.name %>
+ </p>
+
+### Mostrar feature app/views/products/_product.html.erb
+ <p>
+    <strong>Features:</strong>
+    <% product.features.each do |feature| %>
+      <%= feature.name %>
+    <% end %>
+ </p>
+
+# Permitir en el controlador "feature_ids" con 's' app/controllers/product_controller.rb
+ def product_params
+      params.require(:product).permit(:name, :description, :category_id, :price, :release_date, :link_to_website, :available, { feature_ids: [] })
+    end
+
+### Git
+* git add .
+* git commit -m "Feat(Product_feature Model) Relaciones de muachos a muchos vista y modelos"
